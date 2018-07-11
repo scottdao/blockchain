@@ -15,7 +15,7 @@ import bitcoin from 'bitcoinjs-lib'
  //console.log(hdWallet)
  let key1 = hdWallet.derivePath(ETHNET)//真网生成密钥
  
- let address1 = util.pubToAddress(key1._hdkey._publicKey, true)
+ let address1 = util.pubToAddress(key1._hdkey._publicKey, true)//生成地址
  
  address1 = util.toChecksumAddress(address1.toString('hex'))//地址，公钥生成地址；
  console.log('ethAddress:'+address1)//eth地址

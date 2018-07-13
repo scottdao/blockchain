@@ -6,7 +6,7 @@
   "scripts": {
     "build": "cross-env NODE_ENV=production  webpack   --mode=production --config webpack.config.js",
     "watch": "cross-env NODE_ENV=production   webpack --watch",
-    "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode=development  --open --config webpack.config.js"
+    "dev": "cross-env NODE_ENV=dev webpack-dev-server --mode=development  --open chrome --config webpack.config.js"
   },
   "author": "scottliu",
   "license": "ISC",

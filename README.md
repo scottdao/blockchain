@@ -3,7 +3,8 @@
 		ETH--工具类:bip39/ethereumjs-tx/ethereumjs-util/ethereumjs-wallet
 		BTC--工具类：bip39/ethereumjs-tx/bitcoinjs-lib
 		
-	
+		测试网查询地址：https://ropsten.etherscan.io/address/0x5141ee4fe19c924b29d1252cd52d3faa8beb9cdf
+		测试网查询交易：https://ropsten.etherscan.io/tx/0x2a8e9e51558a57517f8085310a6c34e00302b8b55c7ef459261743742bafeebb
 
 
 ## 比特币
@@ -79,5 +80,5 @@
 
 # cmd命令
 
-创建文件名:touch (文件名)README.md
-创建文件夹: mdkir 文件夹名(me)
+		创建文件名:touch (文件名)README.md
+		创建文件夹: mdkir 文件夹名(me)

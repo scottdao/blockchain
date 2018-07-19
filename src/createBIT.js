@@ -4,9 +4,10 @@ import hdkey from 'ethereumjs-wallet/hdkey'
 import util  from 'ethereumjs-util'
 import Tx from 'ethereumjs-tx'
 import bitcoin from 'bitcoinjs-lib' 
+import chance from './chanceNet'
  let ETHNET = "m/44'/60'/0'/0/0"//路径协议
  let BTCNET = "m/44'/0'/0'/0/0"
- let NET = bitcoin.networks.testnet
+ let NET = bitcoin.networks[chance.testnet]
  let  mnemonic = bip39.generateMnemonic();//生成助记词；一般12-24，bip39生成为12
  
  let  seed = bip39.mnemonicToSeed(mnemonic);//种子，二进制数64

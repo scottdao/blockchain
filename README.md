@@ -2,9 +2,23 @@
 
 		ETH--工具类:bip39/ethereumjs-tx/ethereumjs-util/ethereumjs-wallet
 		BTC--工具类：bip39/ethereumjs-tx/bitcoinjs-lib
+
+####[测试网查询地址](https://ropsten.etherscan.io/address/0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF)
+
+
+	
+####[测试网查询交易](https://ropsten.etherscan.io/tx/0x2a8e9e51558a57517f8085310a6c34e00302b8b55c7ef459261743742bafeebb)
+
+
+####[测试网查询BTC](https://testnet.blockchain.info)
 		
-		测试网查询地址：https://ropsten.etherscan.io/address/0x5141ee4fe19c924b29d1252cd52d3faa8beb9cdf
-		测试网查询交易：https://ropsten.etherscan.io/tx/0x2a8e9e51558a57517f8085310a6c34e00302b8b55c7ef459261743742bafeebb
+
+####[主网查询ETH](https://etherscan.io/address)
+
+
+		主网查询BTC:
+
+####[比特币书籍](http://book.8btc.com/books/1/master_bitcoin/_book/jian_suo.html)
 
 
 ## 比特币
@@ -39,7 +53,7 @@
 	
 	4.将以太坊单位(包括代币单位)转换成wei : web3.toWei('1', 'ether');
 ##  基础知识点：
-
+	
 ### 1进制换算原理：
 	
 		1bytes = 8位  = 2string.length;
@@ -48,6 +62,7 @@
 		16进制-->10进制转换函数：0x56 = 6*16^0+5*16^1 =86,parseInt(0x56,10) 
 		
 		10进制-->16进制 转换函数：21 = 21%16   0x15        (21).toString(16) = 15
+														Number('21').toString(16) = 15
 		
 		21/16 = 1 .....5  低位
 		
@@ -56,7 +71,13 @@
 		0x15
 
 ### 2 p2p网络：
-         （Peer-to-Peer）网络是一种端到端的网络，分为：结构化和非结构化网络；比特币的区块链采用的是非结构化P2P网络，整个网络没有中心化的硬件或管理机构，任一节点既是服务端，也是客户端。
+         （Peer-to-Peer）网络是一种端到端的网络，
+         
+         
+         分为：结构化和非结构化网络；比特币的区块链采用的是非结构化P2P网络，
+         
+         
+         整个网络没有中心化的硬件或管理机构，任一节点既是服务端，也是客户端。
 
 ### 3 加密算法和数字签名：
 	加密技术分为对称、非对称和哈希（Hash）加密。对称加密是指用一个同样的密钥来进行加密和解密，非对称加密是指通过公钥和私钥来进行加密和解密，哈希加密主要是通过对数据进行哈希运算，用固定的哈希结果值验证信息是否被篡改。
@@ -77,6 +98,9 @@
 
 	如果没有梅克尔树，区块链也是可以运转，但是要在区块头里包含所有交易记录，扩展性方面存在很大挑战。如图6所示，区块链中的每个区块，由区块头和区块体构成，区块头中含有一个Merkle根节点的字段，通过对区块体中所有交易记录，以二叉树的形式迭代地两两拼接 、进行哈希操作，可以得到一个最终的哈希值，我们称之为Merkle根哈希。Merkle根哈希相当于是对区块中所有交易记录进行了一个快照，区块中交易记录的任意改动都可以通过比较Merkle根哈希而很容易地察觉。Merkle根哈希主要用于简单支付验证（SPV），在验证某个交易是否在区块中时，也能极大地减少网络传输成本。
 
+### 5 Buffer类
+
+	 
 
 # cmd命令
 

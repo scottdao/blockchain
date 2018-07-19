@@ -7,14 +7,20 @@ import bitcoin from 'bitcoinjs-lib'
 import bs58check from 'bs58check'
 import bitcoinjsMessage from 'bitcoinjs-message'
 import buffer from 'buffer'
+import chance from './chanceNet'
 //let w =  ["street", "lamp", "flavor", "uniform", "beauty", "flame", "chicken", "either", "will", "satoshi", "home", "stone"]
 
-let word = 'once camera spoon album glove private venue embrace spread involve observe radar';
+//let word = 'once camera spoon album glove private venue embrace spread involve observe radar';
+let word = 'coyote inmate spell ethics leave garlic warm tag must afraid just reject '
 //let word = w.join(' ');
 //console.log(word)
 let ETHNET = "m/44'/60'/0'/0/0"//路径协议eth
 let BTCNET = "m/44'/0'/0'/0/0"
-let NET = bitcoin.networks.testnet
+let n = chance.testnet
+let NET = bitcoin.networks[n]
+//console.log(NET)
+let netNum = chance.netNum//主网 80 测试网 ef
+//console.log(netNum)
 let  seed = bip39.mnemonicToSeed(word);
 
 let  hdWallet = hdkey.fromMasterSeed(seed);//生成钱包，钱包存在公私钥
@@ -54,7 +60,7 @@ console.log("BTCaddress:"+addressBtc)//测试网的地址。
      var privateBTC = HdKeyBTC._privateKey
        privateBTC = privateBTC.toString('hex')
       //console.log('私钥：'+privateBTC);
-      var key1 = buffer.Buffer.from('ef' + privateBTC + '01', 'hex')
+      var key1 = buffer.Buffer.from(netNum + privateBTC + '01', 'hex')
       
       var wif = bs58check.encode(key1)//将私钥转换成58编码
       //console.log('是：' + wif)
@@ -62,5 +68,8 @@ console.log("BTCaddress:"+addressBtc)//测试网的地址。
       var privateK = keyPair.d.toBuffer(32)
       var decoded = bs58check.decode(wif)
       var signature = bitcoinjsMessage.sign(message, privateK, keyPair.compressed)
-      signature = signature.toString('base64')
-      console.log('signBTC:'+signature)
+  		 console.log('============')
+		 console.log(signature)
+		 console.log('=============')
+		 signature = signature.toString('base64')
+         console.log('signBTC:'+signature)

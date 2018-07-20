@@ -5,13 +5,14 @@ import util  from 'ethereumjs-util'
 import Tx from 'ethereumjs-tx'
 import bitcoin from 'bitcoinjs-lib' 
 import bs58check from 'bs58check'
-import bitcoinjsMessage from 'bitcoinjs-message'
 import buffer from 'buffer'
+import bitcoinjsMessage from 'bitcoinjs-message'
 import chance from './chanceNet'
 //let w =  ["street", "lamp", "flavor", "uniform", "beauty", "flame", "chicken", "either", "will", "satoshi", "home", "stone"]
 
 //let word = 'once camera spoon album glove private venue embrace spread involve observe radar';
-let word = 'coyote inmate spell ethics leave garlic warm tag must afraid just reject '
+//let word = 'coyote inmate spell ethics leave garlic warm tag must afraid just reject '
+let word = 'document sunset dress despair piece pepper bridge cost please annual slide infant'
 //let word = w.join(' ');
 //console.log(word)
 let ETHNET = "m/44'/60'/0'/0/0"//路径协议eth
@@ -59,7 +60,7 @@ console.log("BTCaddress:"+addressBtc)//测试网的地址。
       //测试网：this.NET 'ef' +key+ '01';真网：bitcoin 80+ key+ 01
      var privateBTC = HdKeyBTC._privateKey
        privateBTC = privateBTC.toString('hex')
-      //console.log('私钥：'+privateBTC);
+        console.log('BTC私钥：'+privateBTC);
       var key1 = buffer.Buffer.from(netNum + privateBTC + '01', 'hex')
       
       var wif = bs58check.encode(key1)//将私钥转换成58编码

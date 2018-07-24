@@ -5,6 +5,7 @@
 
 #### [测试网查询地址](https://ropsten.etherscan.io/address/0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF)
 
+#### [申请测试比特币](https://testnet.coinfaucet.eu/en/)
 
 	
 #### [测试网查询交易](https://ropsten.etherscan.io/tx/0x2a8e9e51558a57517f8085310a6c34e00302b8b55c7ef459261743742bafeebb)

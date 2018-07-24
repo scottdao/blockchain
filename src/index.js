@@ -18,7 +18,7 @@ var from = '0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF'
 
 var revice = '0x789e8c97ae218de87c528023259f1c3d67204001'//表示token,智能合约地址
 //构造交易数据；24=24/16....8
-var nonce = 0x70 //表示交易次数
+var nonce = 0x74//表示交易次数
 var gasPrice = '0x98bca5a00'//交易费=gasPrice*gasLimit
 var gasLimit = '0x52080'//33600wei
 

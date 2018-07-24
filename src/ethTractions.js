@@ -16,20 +16,19 @@ if (typeof web3 !== 'undefined') {
 }
 var from = '0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF'
 
-var revice = '0x789e8c97ae218de87c528023259f1c3d67204001'//表示token,智能合约地址
+var revice = '0x6C7648365aeD4a3B4e8F8e415DFd4a3c385d27C9'
 //构造交易数据；24=24/16....8
-var nonce = 0x70 //表示交易次数
-var gasPrice = '0x98bca5a00'//交易费=gasPrice*gasLimit
+var nonce = 0x6c //表示交易次数
+var gasPrice = '0x3B9ACA00'//交易费=gasPrice*gasLimit
 var gasLimit = '0x52080'//33600wei
-
 var txData={
 	 nonce: nonce,
       gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
       //gasLimit: gas,
       gasLimit:gasLimit,//1000000
       to:revice,
-      value: 0x00,
-      data:'0xa9059cbb0000000000000000000000006C7648365aeD4a3B4e8F8e415DFd4a3c385d27C90000000000000000000000000000000000000000000000056bc75e2d63100000',
+      value: 0.01*Math.pow(10,18),
+     data:'',
       chainId: 3
 }
  var tx = new Tx(txData)
@@ -39,7 +38,7 @@ var txData={
      tx.sign(Buffer.from(privateKey, 'hex'))
      const serializedTx = tx.serialize()
      var raw = '0x' + serializedTx.toString('hex') 
-     //console.log(raw)
+     console.log(raw)
     web3.eth.sendRawTransaction(raw, function(err, hash) {
 		if(!err) {
 			console.log(hash);

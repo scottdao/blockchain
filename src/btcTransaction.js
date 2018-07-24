@@ -31,9 +31,9 @@ let txb = new bitcoin.TransactionBuilder(NET)
     txb.setVersion(1)//设置交易版本；
     let txid = '99585208eb5bccbc5a0a99390886f449392853dfcba36d58d110566b7a6ffc72'//表示用了 unspent数组中对应的交易
     let txn = 1 //表示unspent数组中对应的值
-    txb.addInput(txid, txn)
+    txb.addInput(txid, txn)//运用unspent数组中的几个元素，就调用几次
     txb.addOutput('n2kbrdnKT6UJvQKu8NNtwXjLkGZ9KFygE1', 0.1*Math.pow(10,8))//转出地址0.35629- 0.1-0.0001
     txb.addOutput('mgXEfbYoa3HKN56mPGVQQ6Zcxe419xUR7r', parseInt((0.35629- 0.1-0.0001)*Math.pow(10,8)))//找零地址  咱们设为自己
-	txb.sign(0, sender);//设置交易签名
+	txb.sign(0, sender);//设置交易签名,
 	console.log(txb.build().toHex())//交易成功。
 //发送交易；

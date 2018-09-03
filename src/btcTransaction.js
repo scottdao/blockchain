@@ -11,7 +11,7 @@ import chance from './chanceNet'
 //import './resotre'
 //1.通过助记词恢复钱包；这个交易在私钥情况下进行。
 
-var privateBTC = '8ba27926c006e2338fd9330184dd237070bee90d0019e28df8f305e78d819feb';//mgXEfbYoa3HKN56mPGVQQ6Zcxe419xUR7r
+var privateBTC = '344d48a014f8ba685bce666235c8ae9e23ed9891291bb2b9355936d1b14ed7c8';//mgXEfbYoa3HKN56mPGVQQ6Zcxe419xUR7r
 //btc 通过私钥恢复钱包；
 
 let NET = bitcoin.networks.testnet
@@ -25,7 +25,8 @@ let WIF = bs58check.encode(keyBTC)//编译成base58码；
 let sender = new bitcoin.ECPair.fromWIF(WIF, NET)
 //console.log(sender.getAddress())
 let BTCAddress = sender.getAddress()//私钥,恢复BTC钱包地址 mgXEfbYoa3HKN56mPGVQQ6Zcxe419xUR7r
-
+console.log('address')
+console.log(BTCAddress)
 let txb = new bitcoin.TransactionBuilder(NET)
 //console.log(txb)
     txb.setVersion(1)//设置交易版本；

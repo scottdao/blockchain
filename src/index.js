@@ -1,3 +1,4 @@
+
 import bip39 from 'bip39';
 import hdkey from 'ethereumjs-wallet/hdkey'
 import util  from 'ethereumjs-util'
@@ -12,7 +13,7 @@ if (typeof web3 !== 'undefined') {
    var web3 = new Web3(web3.currentProvider);
 } else {
 // set the provider you want from Web3.providers
-   var  web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/H2RvEhIXzZSxx73jLtcZ"));
+// var  web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/H2RvEhIXzZSxx73jLtcZ"));
 }
 var from = '0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF'
 
@@ -32,7 +33,7 @@ var txData={
       data:'0xa9059cbb0000000000000000000000006C7648365aeD4a3B4e8F8e415DFd4a3c385d27C90000000000000000000000000000000000000000000000056bc75e2d63100000',
       chainId: 3
 }
- var tx = new Tx(txData)
+   var tx = new Tx(txData)
      //var key1 = hdwallet.derive("m/44'/60'/0'/0/0")
      var privateKey = '97d5836950a00e9d5e3aa42ec3fe3ae05e40cc3e61717f1a1890c816f6c58429';
      //privateKey = privateKey.toString('hex')

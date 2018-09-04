@@ -1,0 +1,302 @@
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>测试</title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			#btn,#raw{
+				width: 150px;
+				height:30px;
+				margin: 10px 0;
+			}
+			#total tr{
+				text-align: center;
+			}
+			#total tr td:nth-child(2){
+				padding-left: 5px;
+			}
+			
+		</style>
+		<script src="./bip39.js" type="text/javascript"></script>
+		<script  src="./bit.min.js" type="text/javascript"></script>
+		<script  src="./tool.min.js" type="text/javascript"></script>
+		<script type="text/javascript" src="./keythereum.min.js"></script>
+		<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="total">
+				<from>
+					<table border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td>您的地址</td>
+							<td><input type="text" id="addre" name="addre" onkeyup="getVal('addre')"/></td>
+							
+						</tr>
+						<tr>
+							<td>你的私钥</td>
+							<td><input type="text" id="key" name="key" onkeyup="getVal('key')"/></td>
+						</tr>
+					
+						<tr>
+							<td>币种</td>
+							<td>
+								<select name="coinType" onchange="chanceAddre()" id="coinType" style="width: 100%;" >
+									<!--<option value="BTC">BTC</option>-->
+									<option value="ETH">ETH</option>
+									<option value="代币">代币</option>
+								</select>
+							</td>
+							<td style="display: none;" id="tdToken"><input type="text"name="token" onkeyup="getVal('token')" id="token" value="" placeholder="代币名称" /></td>
+							<td><button id="getzz">获取转账授权</button></td>
+							<td>
+								<span >
+									余额：
+								</span>
+								<span id="balance">
+									
+								</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>币数量</td>
+							<td><input type="number" id="num" name="num" onkeyup="getVal('num')"/></td>
+						</tr>
+						<tr>
+							<td>旷工费</td>
+							<td><input type="number" id="fee" name="fee" onkeyup="getVal('fee')"/></td>
+						</tr>
+						<tr id="heyue" style="display: none;">
+							<td>合约地址</td>
+							<td><input  type="text" id="contract" placeholder="选填(代币必填)" name="contract" onkeyup="getVal('contract')"/></td>
+						</tr>
+						<tr id="target">
+							<td>目的地址</td>
+							<td><input type="text" id="targetAddr" name="targetAddr" onkeyup="getVal('targetAddr')"/></td>
+						</tr>
+					</table>
+					    <button id="raw">获取rawTransaction</button>
+						<button id="btn">转账</button>
+				</from>
+				
+		</div>
+		<script type="text/javascript">
+			var chainId = 1;
+			var chain_network = 'main_network'
+			var obj = {
+				type:'ETH'
+			};
+			var Buffer = buffer.Buffer;
+			function dom (name){
+				return document.getElementById(name)
+			}
+			function css(ele,sty,status){
+				 ele.style[sty] = status
+			}
+			var coinI = 0;
+			function chanceAddre(){//选择代币
+				var coinIndex = dom('coinType').selectedIndex;
+				css(dom('tdToken'),'display','none');
+				//dom('contract').setAttribute('disabled')
+				coinI = coinIndex;
+				switch(coinIndex){
+					case 0://eth
+						obj['type'] = 'ETH'
+						css(dom('target'),'display','');
+						css(dom('heyue'),'display','none');
+						//dom('contract').setAttribute('disabled')
+					break;
+					case 1:
+						css(dom('tdToken'),'display','block');
+						obj['type'] = dom('token').value;
+						//dom('contract').removeAttribute('disabled')
+						css(dom('target'),'display','none');
+						css(dom('heyue'),'display','');
+					break;
+				}
+			}
+			var Url  = 'https://wallet.kinlink.cn/api/';
+			var accessToken = 'TxpUMccv-7oYfMyfpce0SCxBxLYqWdxJ_1533713782';
+			var newObj = {};
+			
+			$('#getzz').click(function(){
+				var type = obj['type'] 
+				
+				if(obj.addre){
+					$.post(Url+'transaction/prepare',{access_token:accessToken,coin_symbol:type,wallet_addr:obj.addre,chain_network:chain_network},function(res){
+						//console.log(res)
+						if(res.code==200){
+							newObj = res.data;
+							$('#balance').append(res.data.balance)
+							alert('授权成功')
+						}
+					},'json')
+				}else{
+					alert('您的地址不能为空')
+				}
+				
+			})
+			function getVal(type){
+				obj[type] = dom(type).value
+				
+				if(coinI==1){
+					obj['type'] = dom('token').value;
+					//console.log(dom('token').value)
+				}
+			}
+			
+			function addZore(str){
+			    let len = str.length;
+			    let nextLen = 64-len;
+			    let z = ''
+			    for(let i = 0;i<nextLen;i++){
+			      z +=0
+			    }
+			    return z + str
+			  }
+			function raw(){
+				var gasPrice ='0x'+parseInt((obj.fee*Math.pow(10,18) / Number(newObj.gas))).toString(16)
+								var txData={
+									 nonce: newObj.nonce,
+								     gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
+								      //gasLimit: gas,
+								      gasLimit:newObj.gas,//1000000
+								      to:obj.targetAddr,
+								      value: obj.num*Math.pow(10,18),
+								      data:'',
+								      chainId: chainId
+								}
+								var tx = new Tx(txData);
+								var privateKey = obj.key;
+							   	tx.sign(Buffer.from(privateKey, 'hex'))
+							     const serializedTx = tx.serialize()
+							     var raw = '0x' + serializedTx.toString('hex');
+				return raw;
+			}
+			dom('raw').onclick = function(){
+				if(obj.addre){
+					if(obj.num){
+						if(obj.fee){
+							if(newObj.coin_symbol){
+								 var r = raw();
+								 document.write('<textarea name="" style="height: 200px;width: 400px;" rows="" cols="">'+r+'</textarea>')
+							}else{
+								alert('未获取授权')
+							}
+						}else{
+								alert('费用为空')
+						}
+					}else{
+						alert('币量为空')
+					}
+				}else{
+					alert('地址空的')
+				}
+			}
+			dom('btn').onclick=  function(){
+				//console.log(obj)
+				
+				if(obj.addre){
+					if(obj.num){
+						if(obj.fee){
+							if(coinI == 0){//eth转账
+								
+								var gasPrice ='0x'+parseInt((obj.fee*Math.pow(10,18) / Number(newObj.gas))).toString(16)
+								var txData={
+									 nonce: newObj.nonce,
+								     gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
+								      //gasLimit: gas,
+								      gasLimit:newObj.gas,//1000000
+								      to:obj.targetAddr,
+								      value: obj.num*Math.pow(10,18),
+								      data:'',
+								      chainId: chainId
+								}
+								var tx = new Tx(txData);
+								var privateKey = obj.key;
+							   	tx.sign(Buffer.from(privateKey, 'hex'))
+							     const serializedTx = tx.serialize()
+							     var raw = '0x' + serializedTx.toString('hex');
+							     console.log(raw)
+							     console.log(newObj)
+							     if(newObj.coin_symbol){
+							     	$.post(Url+'transaction/send',{
+									access_token:accessToken,
+									coin_symbol:'ETH',
+									wallet_addr:obj.addre,
+									to:obj.targetAddr,
+									value:obj.num,
+									gas_price:gasPrice,
+									gas:newObj.gas,
+									nonce:newObj.nonce,
+									raw:raw,
+									chain_network:chain_network
+									},function(r){
+										//console.log(r);
+										
+									})
+							     }else{
+							     	alert('未获取转账授权')
+							     }
+								
+//								document.write('<div><p><span>地址：</span><span>'+obj.addre+'</span></p><p><span>币类型：</span><span>'+obj.type+'</span></p><p><span>数量：</span><span>'+obj.num+'</span></p><p><span>旷工费：</span><span>'+obj.fee+'</span></p></div>')
+							}else if(coinI ==1){
+								var gasPrice ='0x'+parseInt((obj.fee*Math.pow(10,18) / Number(newObj.gas))).toString(16);
+								var addresLen = addZore(obj.addre.substring(2));
+								var num = Number(obj.num*Math.pow(10,18)).toString(16);
+								var data = '0x' + 'a9059cbb' + addresLen + addZore(num);
+								var txData={
+									 nonce: newObj.nonce,
+								     gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
+								      //gasLimit: gas,
+								      gasLimit:newObj.gas,//1000000
+								      to:obj.contract,
+								      value: 0x00,
+								      data:data,
+								      chainId: chainId
+								}
+								var tx = new Tx(txData);
+								var privateKey = obj.key;
+							   	tx.sign(Buffer.from(privateKey, 'hex'))
+							     var serializedTx = tx.serialize()
+							     var raw = '0x' + serializedTx.toString('hex');
+							     //console.log(raw);
+							     if(newObj.coin_symbol){
+							     	$.post(Url+'transaction/send',{
+										access_token:accessToken,
+										coin_symbol:newObj.coin_symbol,
+										wallet_addr:obj.addre,
+										to:obj.targetAddr,
+										value:obj.num,
+										gas_price:gasPrice,
+										gas:newObj.gas,
+										nonce:newObj.nonce,
+										raw:raw,
+										data:data,
+										chain_network:chain_network
+										},function(r){
+											//console.log(r);
+											document.write("<div>转账成功</div>")
+										})
+							     }else{
+							     	alert('未获取授权')
+							     }
+								//document.write('<div><p><span>地址：</span><span>'+obj.addre+'</span></p><p><span>币类型：</span><span>'+obj.type+'</span></p><p><span>数量：</span><span>'+obj.num+'</span></p><p><span>旷工费：</span><span>'+obj.fee+'</span></p><p><span>合约地址：</span><span>'+obj.contract+'</span></p></div>')
+							}
+						}
+						else{
+							alert('费用为空')
+						}
+					}else{
+						alert('币量为空')
+					}
+				}else{
+					alert('地址空的')
+				}
+			}
+		</script>
+	</body>
+</html>

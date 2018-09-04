@@ -23,7 +23,7 @@ var gasPrice = '0x3B9ACA00'//交易费=gasPrice*gasLimit
 var gasLimit = '0x52080'//33600wei
 var txData={
 	 nonce: nonce,
-      gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
+     gasPrice:gasPrice, //1 Gwei（= 1000000000 = 0x3B9ACA00）
       //gasLimit: gas,
       gasLimit:gasLimit,//1000000
       to:revice,
@@ -31,7 +31,7 @@ var txData={
      data:'',
       chainId: 3
 }
- var tx = new Tx(txData)
+ 	var tx = new Tx(txData)
      //var key1 = hdwallet.derive("m/44'/60'/0'/0/0")
      var privateKey = '97d5836950a00e9d5e3aa42ec3fe3ae05e40cc3e61717f1a1890c816f6c58429';
      //privateKey = privateKey.toString('hex')

@@ -11,9 +11,9 @@ var  keythereum = require('keythereum');
     }
   }
 var aLink = document.createElement('a');
-var passwd = '123456'
+var passwd = 'AoFKyF9zJI7f7dwuwD66'
 var keyObject = keythereum.dump(passwd, '58ad93973164418e2431c456c164235633fa90c437ff185aef901ccc964fb29c', dk.salt, dk.iv, options);
-var blob = new Blob([JSON.stringify(keyObject)], { type: "" });
+var blob = new Blob([JSON.stringify(keyObject)], {type: "" });
 var evt = new Event('click');
 aLink.download = 'keystore.json';
 aLink.href = URL.createObjectURL(blob);

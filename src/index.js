@@ -13,13 +13,14 @@ if (typeof web3 !== 'undefined') {
    var web3 = new Web3(web3.currentProvider);
 } else {
 // set the provider you want from Web3.providers
-// var  web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/H2RvEhIXzZSxx73jLtcZ"));
+   var  web3 = new Web3(new Web3.providers.HttpProvider("https://ropsten.infura.io/H2RvEhIXzZSxx73jLtcZ"));
 }
+//console.log(web3)
 var from = '0xb52Aa890a5a9A56a1FDBCc62968B885B92Da7efF'
 
 var revice = '0x789e8c97ae218de87c528023259f1c3d67204001'//表示token,智能合约地址
 //构造交易数据；24=24/16....8
-var nonce = 0x74//表示交易次数
+var nonce = 0x280//表示交易次数
 var gasPrice = '0x98bca5a00'//交易费=gasPrice*gasLimit
 var gasLimit = '0x52080'//33600wei
 
@@ -31,6 +32,7 @@ var txData={
       to:revice,
       value: 0x00,
       data:'0xa9059cbb0000000000000000000000006C7648365aeD4a3B4e8F8e415DFd4a3c385d27C90000000000000000000000000000000000000000000000056bc75e2d63100000',
+      //注：构造参数转币的个数，参数转化。必须转换成16进制，代币单位的转化，根据token的位数，进行转化。如果是18位的，则他的进制关系就是18wei;4位则为4wei.
       chainId: 3
 }
    var tx = new Tx(txData)

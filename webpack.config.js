@@ -12,7 +12,7 @@ module.exports = {
 	 	  	 contentBase: './dist',
 		     hot: true,
 		     port: 3000,
-		     host: '192.168.1.29'
+		     host: 'localhost'
 			 },
 	 plugins: [
 		 new HtmlWebpackPlugin({

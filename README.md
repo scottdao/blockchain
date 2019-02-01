@@ -142,7 +142,7 @@
 
 ##### 6.1.3 万事达币
 
-		
+#### [智能合约](http://wiki.jikexueyuan.com/project/solidity-zh/installing-solidity.html)	
 
 # cmd命令
 
